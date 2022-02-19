@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <button className="btn btn-primary" onClick={() => {
-        axios.post('http://localhost:5000/api/find')
+        axios.post('localhost:8080/api/find')
           .then((res) => {
             console.log(res)
           })
