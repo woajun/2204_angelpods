@@ -5,7 +5,20 @@
 .overMap * {
   z-index:10;
   padding:10px;
-
+}
+.markerWindow {
+  width:230px;
+  padding:10px;
+}
+.markerWindow .i_name {
+  border:solid gray 1px; 
+}
+.markerWindow h4 {
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
 }
 .searchWindow {
   width:250px;
@@ -22,7 +35,24 @@
 .eachPost {
   min-width:250px;
   width:250px;
-  height:200px;
+  height:170px;
+  transform:translateY(0);
+}
+.eachPost:hover{
+  cursor:pointer;
+  background: lightgray;
+  transform:translateY(-10px);
+  transition: all ease 0.1s 0.1s;
+}
+.eachPost * {
+  padding:0;
+}
+.eachPost .title {
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
 }
 
 .bAddr{
