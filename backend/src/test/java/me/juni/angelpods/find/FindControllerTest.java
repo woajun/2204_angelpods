@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,6 +29,38 @@ class FindControllerTest {
 	@Autowired private MockMvc mockMvc;
 	@Autowired private ObjectMapper objectMapper;
 	
+	@DisplayName("습득물 등록 - 이미지 등록")
+	@Test
+	void createFindImage() throws Exception {
+		FindCreateDto dto = new FindCreateDto();
+		dto.setUserId("honggildong");
+		dto.setmCategory("무선이어폰");
+		dto.setsCategory("에어팟");
+		dto.setLat("110.204252");
+		dto.setLng("120.255655");
+		dto.setTitle("무학여고 앞에서 찾았습니다.");
+		dto.setDesc("에어팟 무학여고 앞에 버스정류장에 있었어요");
+		dto.setiName("에어팟 3세대");
+		dto.setGetTime(LocalDateTime.of(2022, 02, 12, 12, 14));
+		dto.setGetLoc("서울시 성동구 응봉동 360-1");
+		dto.setPhone("010-1234-5678");
+		
+		String jsonStr = objectMapper.writeValueAsString(dto);
+		
+		
+		MockMultipartFile firstFile = new MockMultipartFile("data", "filename.txt", "text/plain", "some xml".getBytes());
+		MockMultipartFile secondFile = new MockMultipartFile("data", "filename2.txt", "text/plain", "some xml2".getBytes());
+        MockMultipartFile jsonFile = new MockMultipartFile("json", "", "application/json", jsonStr.getBytes());
+
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/api/find/upload")
+				.file(firstFile)
+				.file(secondFile)
+				.file(jsonFile)
+				)
+		.andDo(print())
+		.andExpect(status().isOk());
+		;
+	}
 	@DisplayName("습득물 등록 - 입력값 정상")
 	@Test
 	void createFind() throws Exception {
@@ -46,7 +80,7 @@ class FindControllerTest {
 		mockMvc.perform(post("/api/find")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(dto)))
-		.andDo(print())
+//		.andDo(print())
 		.andExpect(status().isCreated())
 		;
 	}
@@ -68,7 +102,7 @@ class FindControllerTest {
 		mockMvc.perform(post("/api/find")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(dto)))
-		.andDo(print())
+//		.andDo(print())
 		.andExpect(status().isBadRequest())
 		;
 	}
@@ -77,7 +111,7 @@ class FindControllerTest {
 	@Test
 	void getPages() throws Exception {
 		mockMvc.perform(get("/api/find"))
-		.andDo(print())
+//		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("phone").doesNotExist());
 	}
