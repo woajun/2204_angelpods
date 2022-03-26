@@ -61,3 +61,52 @@
 .bAddr div{
   white-space: nowrap;
 }
+
+
+.imgContainer {
+  position: relative;
+  min-width:85px;
+  height:85px;
+  background-color:rgba(0,0,0,0.1);
+}
+.imgContainer .delete {
+  position: absolute;
+  top: 0;
+  right:0;
+  background: rgba(0, 0, 0, 0.5); 
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.imgContainer .add {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: darkgray;
+  text-align: center;
+  cursor: pointer;
+}
+.imgContainer .text {
+  position: absolute;
+  bottom: 0;
+  right:0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 20px;
+  color: white;
+  text-align: center;
+  font-size: 13px;
+}
+
+
+.textarea{
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  border: solid lightgrey 1px;
+  border-radius: 3px;
+}
+.textarea:hover {
+  border: solid black 1px;
+}

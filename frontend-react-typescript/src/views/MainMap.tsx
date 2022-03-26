@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios'
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
@@ -56,15 +57,25 @@ const MainMap = () => {
   function makeMarkerWindow(item: any) {
     return `
     <div class="markerWindow">
-      <h5 class="i_name">${item.i_name}</h5>
+      <h5 class="i_name">${item.iName}</h5>
       <h4>${item.title}</h4>
-      <div>${item.get_time}</div>
+      <div>${item.getTime.replace('T', ' ').substr(0, 16)}</div>
     </div>`
   }
 
   useEffect(() => {
-    // axios.get
-    setList(fakeList)
+    const getList = async () => { //TODO: async-await 생각해보기
+      await axios.get('http://localhost:5000/api/find')
+        .then(res => {
+          setList(res.data)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+    getList();
+    // setList(fakeList)
   }, [])
 
   useEffect(() => {
@@ -77,10 +88,10 @@ const MainMap = () => {
         level: 1
       };
       const map = new window.kakao.maps.Map(container.current, options);
-
+      // console.log("list", list)
       if (layout === 0) {
         for (var i = 0; i < list.length; i++) {
-          list[i].latlng = new window.kakao.maps.LatLng(Number(list[i].lat), Number(list[i].lng))
+          list[i].latlng = new window.kakao.maps.LatLng(Number(list[i].lng), Number(list[i].lat))
           list[i].content = makeMarkerWindow(list[i])
           // 마커를 생성합니다
           const marker = new window.kakao.maps.Marker({
@@ -93,7 +104,6 @@ const MainMap = () => {
           var infowindow = new window.kakao.maps.InfoWindow({
             content: list[i].content // 인포윈도우에 표시할 내용
           });
-
           // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
           // 이벤트 리스너로는 클로저를 만들어 등록합니다 
           // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
@@ -196,9 +206,9 @@ const MainMap = () => {
                   {/* <Stack direction="row-reverse" justifyContent="flex-end" alignItems="baseline" flexWrap="wrap" spacing={1}> */}
                   <Stack direction="row" spacing={1} sx={{ marginLeft: 'auto' }}>
                     <Button onClick={() => setLayout(2)} variant="contained" className="btn-write" >발견했어요</Button>
-                    <Button onClick={() => setLayout(2)} variant="contained" className="btn-write" >찾아주세요</Button>
+                    {/* <Button onClick={() => setLayout(2)} variant="contained" className="btn-write" >찾아주세요</Button> */}
                   </Stack>
-                  <SearchWindow />
+                  {/* <SearchWindow /> */}
                   {/* </Stack> */}
                   <Stack className="posts" direction="row" justifyContent="flex-start" alignItems="flex-end" spacing={2}>
                     {
