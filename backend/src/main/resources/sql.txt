@@ -1,0 +1,43 @@
+  // 생성쿼리
+  create table find (
+      id int8 not null,
+      created_at timestamp,
+      description varchar(255),
+      get_loc varchar(255),
+      get_time timestamp,
+      i_name varchar(255),
+      last_updated_at timestamp,
+      lat varchar(255),
+      lng varchar(255),
+      m_category varchar(255),
+      phone varchar(255),
+      s_category varchar(255),
+      title varchar(255),
+      primary key (id)
+  );
+    
+    create table category_parent (
+       parentid varchar(255) not null,
+        primary key (parentid)
+    )
+
+    create table category_child (
+       category_childid varchar(255) not null,
+        category_parentid varchar(255) not null,
+        primary key (category_childid, category_parentid)
+    )
+ 
+ // 초기화 쿼리
+
+//큰거
+INSERT INTO "public"."category_parent" ("parentid","index") VALUES ('무선이어폰',0);
+INSERT INTO "public"."category_parent" ("parentid","index") VALUES ('중형견',1);
+
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('미분류', '무선이어폰',0);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('에어팟', '무선이어폰',1);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('버즈', '무선이어폰',2);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('기타', '무선이어폰',3);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('미분류', '중형견',0);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('말티즈', '중형견',1);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('도베르만', '중형견',2);
+INSERT INTO "public"."category_child" ("category_childid", "category_parentid","index") VALUES ('웰시코기', '중형견',3);
