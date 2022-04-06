@@ -236,7 +236,7 @@ const MainMap = () => {
                       <div className="hAddr">
                         <span ref={infoDiv}></span>
                       </div>
-                      <div>지도에서 습득 장소를 선택해주세요</div>
+                      <div>지도에서 습득 장소를 선택 후, 우측 하단의 '확인'버튼을 눌러주세요</div>
                     </Paper>
                   </Stack>
                   <Stack direction="row" justifyContent="flex-end" spacing={1} sx={{ marginTop: 'auto' }}>
