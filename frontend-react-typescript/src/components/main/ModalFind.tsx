@@ -73,8 +73,10 @@ const ModalFind = (props: any) => { //TODO props type 확정되면 interface 넣
     phone
   }
 
+  /**
+   * 모달창 생성 
+   */
   useEffect(() => {
-    // 모달창 켜지면
     if (props.layout === 1) {
       setOpen(true);
       if (props.getLoc) {
@@ -110,7 +112,7 @@ const ModalFind = (props: any) => { //TODO props type 확정되면 interface 넣
   }, [mCategory])
 
   /**
-   * 이미지 미리보기 및 변수에 담기
+   * 이미지 미리보기 및 파라미터 데이터에 담기
    */
   const onSelectFile = (e: any) => {
     const files: File[] = e.target.files
