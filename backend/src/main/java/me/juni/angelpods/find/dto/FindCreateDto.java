@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 
-import me.juni.angelpods.find.Find;
+import me.juni.angelpods.find.entity.Find;
 
 
 public class FindCreateDto {
@@ -28,19 +28,20 @@ public class FindCreateDto {
 	
 	
 	public Find createFind() {
-		Find find = new Find();
-		find.setmCategory(this.getmCategory());
-		find.setsCategory(this.getsCategory());
-		find.setLat(this.getLat());
-		find.setLng(this.getLng());
-		find.setTitle(this.getTitle());
-		find.setDescription(this.getDesc());
-		find.setiName(this.getiName());
-		find.setGetTime(this.getGetTime());
-		find.setGetLoc(this.getGetLoc());
-		find.setPhone(this.getPhone());
-		find.setCreatedAt(LocalDateTime.now());
-		find.setLastUpdatedAt(LocalDateTime.now());
+		Find find = Find.builder()
+		   .mCategory(mCategory)
+		   .sCategory(sCategory)
+		   .lat(lat)
+		   .lng(lng)
+		   .title(title)
+		   .description(desc)
+		   .iName(iName)
+		   .getTime(getTime)
+		   .getLoc(getLoc)
+		   .phone(phone)
+		   .createdAt(LocalDateTime.now())
+		   .lastUpdatedAt(LocalDateTime.now())
+		   .build();
 		return find;
 	}
 	
